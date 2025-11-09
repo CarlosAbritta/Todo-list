@@ -1,0 +1,89 @@
+/* public/styles/editPage.css */
+
+/* --- 1. O Fundo da Página --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5; /* O mesmo fundo cinza claro */
+    margin: 0;
+    padding: 20px; /* Espaço nas bordas */
+}
+
+/* --- 2. O Container Centralizador --- */
+.container {
+    /* Desta vez, usamos flex no container para 
+      centralizar o "cartão" que está dentro dele
+    */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente  horizontally */
+    align-items: flex-start; /* Alinha o cartão no topo */
+}
+
+/* --- 3. O "Cartão" Branco --- */
+.edit-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    /* Limita a largura do cartão */
+    width: 100%;
+    max-width: 500px; 
+    
+    /* Garante que o padding não "estoure" a largura */
+    box-sizing: border-box; 
+}
+
+/* --- 4. O Título --- */
+.edit-box h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+}
+
+/* --- 5. O Formulário e seus Itens --- */
+.edit-box form {
+    display: flex;
+    flex-direction: column; /* Coloca os itens (label, input) um embaixo do outro */
+}
+
+.edit-box label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px; /* Espaço entre o label e o input */
+}
+
+.edit-box input[type="text"] {
+    padding: 12px;
+    margin-bottom: 20px; /* Espaço entre os inputs */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.edit-box button {
+    background-color: #007bff; /* Azul */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-box button:hover {
+    background-color: #0056b3;
+}
+
+/* --- 6. O Link de "Cancelar" --- */
+.cancel-link {
+    display: block; /* Faz o <a> ocupar a linha inteira */
+    margin-top: 15px;
+    text-align: center;
+    color: #007bff;
+    text-decoration: none; /* Tira o sublinhado */
+}
+
+.cancel-link:hover {
+    text-decoration: underline; /* Adiciona o sublinhado ao passar o mouse */
+}
