@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nova Conta</title>
+    
+    <link rel="stylesheet" href="/styles/editPage.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="edit-box">
+
+            <h1>Criar Conta</h1>
+
+            <form method="POST" action="/registrar">
+                
+                <label for="email">Email:</label>
+                <input 
+                    type="email" 
+                    id="email"
+                    name="email" 
+                    placeholder="seu@email.com"
+                    required 
+                >
+
+                <label for="password">Senha:</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Mínimo 8 caracteres"
+                    required
+                >
+
+                <label for="confirm_password">Confirmar Senha:</label>
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Repita sua senha"
+                    required
+                >
+
+                <button type="submit">Registrar</button>
+            </form>
+
+            <a href="/login" class="cancel-link">
+                Já tem uma conta? Faça Login
+            </a>
+
+        </div> </div> </body>
+</html>
