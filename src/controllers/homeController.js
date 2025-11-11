@@ -2,27 +2,28 @@ const Tarefa = require('../models/tarefaModel')
 
 exports.homePage = async (req, res) => {
     try {
-        const tarefas = await Tarefa.find();
-        const errorMessage = req.flash('error');
+        const tarefas = await Tarefa.find({user:req.session.userId})
+        const errorMessage = req.flash('error')
 
         res.render('home', { tarefas: tarefas,
             errorMessage: errorMessage,
-         });
+         })
     } catch (error) {
-        console.error('Erro ao buscar tarefas:', error);
-        res.status(500).send('Erro ao buscar tarefas');
+        console.error('Erro ao buscar tarefas:', error)
+        res.status(500).send('Erro ao buscar tarefas')
     }
 }
 
 
 exports.addTarefa = async (req, res) => {
     try{
-        const { tarefa, descricao} = req.body;
+        const { tarefa, descricao} = req.body
         const novaTarefa = new Tarefa({
             nome: tarefa,
-            descricao: descricao
+            descricao: descricao,
+            user: req.session.userId
         });
-        await novaTarefa.save();
+        await novaTarefa.save()
         res.redirect('/');
     }catch (error) {
         console.error('Erro ao adicionar tarefa:', error)}}
@@ -31,8 +32,10 @@ exports.addTarefa = async (req, res) => {
 exports.deleteTarefa = async (req, res)=>{
     try{
     const idDaTarefa = req.body.tarefa_id;
-    const deletarTarefa = Tarefa.deleteOne({_id:idDaTarefa});
-    await deletarTarefa;
+    const usuarioLogadoId = req.session.userId
+    await Tarefa.deleteOne({_id:idDaTarefa,
+        user: usuarioLogadoId
+    });
     res.redirect('/');
 
     }
@@ -44,7 +47,11 @@ exports.deleteTarefa = async (req, res)=>{
 exports.toggleTask = async(req,res)=>{
     try{
         const idDaTarefa = req.params.id
-        const tarefa = await Tarefa.findById(idDaTarefa)
+        const usuarioLogadoId = req.session.userId
+        const tarefa = await Tarefa.findOne({_id:idDaTarefa,user:usuarioLogadoId})
+        if(!tarefa){
+            return res.status(400).send("Você não está autorizado a fazer isso")
+        }
         tarefa.concluida = !tarefa.concluida
         await tarefa.save()
         res.redirect('/')
