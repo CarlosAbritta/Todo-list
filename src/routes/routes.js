@@ -1,23 +1,34 @@
 const route = require('express').Router();
+
+// controllers
 const homeController = require('../controllers/homeController');
 const editController = require('../controllers/editController')
 const registerController = require('../controllers/registerController')
+const loginController = require('../controllers/loginController')
+
+
+// middlewares
 const validateTask = require('../middlewares/validateTask')
+const isAuth = require('../middlewares/isAuth')
 
-route.get('/', homeController.homePage)
 
-route.post('/',validateTask,homeController.addTarefa)
+// rotas que necessitam de autenticação
+route.get('/', isAuth,homeController.homePage)
+route.post('/',isAuth,validateTask,homeController.addTarefa)
 
-route.post('/delete', homeController.deleteTarefa);
+route.post('/delete', isAuth,homeController.deleteTarefa);
+route.post('/toggle/:id', isAuth,homeController.toggleTask)
 
-route.get('/update/:id', editController.renderEditPage)
+route.get('/update/:id', isAuth,editController.renderEditPage)
+route.post('/update/:id', isAuth,editController.updateTarefa)
 
-route.post('/update/:id', editController.updateTarefa)
 
-route.post('/toggle/:id', homeController.toggleTask)
 
+// rotas publicas
 route.get('/register', registerController.renderPage)
-
 route.post('/registrar', registerController.registerUser)
+
+route.get('/login', loginController.renderLogin)
+route.post('/login', loginController.loginUser)
 
 module.exports = route;
